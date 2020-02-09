@@ -5,6 +5,7 @@ const geocode=require('./geocode/geocode.js');
 const forecast=require('./forecast/forecast.js');
 
 const app=express();
+const port=process.env.PORT||3000
 
 const publicDirectoryPath=path.join(__dirname,'../public');
 const viewPath=path.join(__dirname,'../templates/views');
@@ -13,8 +14,6 @@ const partialsPath=path.join(__dirname,'../templates/partials');
 app.set('view engine','hbs')
 app.set('views',viewPath);
 hbs.registerPartials(partialsPath);
-
-
 
  app.use(express.static(publicDirectoryPath));
 
@@ -64,8 +63,6 @@ app.get('/weather',(req,res)=>{
         })
       })
     })
-    
-   
 })
 app.get('/products',(req,res)=>{
     if(!req.query.search)
@@ -87,7 +84,6 @@ app.get('/help/*',(req,res)=>{
         ErrorMessage:'Help article not found'
     })
 })
-
 app.get('*',(req,res)=>{
     res.render('404',{
         title:'404',
@@ -95,7 +91,6 @@ app.get('*',(req,res)=>{
         ErrorMessage:'Page not found'
     })
 })
-
-app.listen(3000,()=>{
-    console.log('server is a localhost:3000');
+app.listen(port,()=>{
+    console.log('server is'+port);
 })
